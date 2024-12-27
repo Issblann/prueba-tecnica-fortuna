@@ -18,10 +18,4 @@ const UserSchema = new Schema({
 });
 
 const UserModel = mongoose.model<User>('User', UserSchema);
-const instance = new UserModel({
-  name: 'John Doe',
-  email: 'johndoe05@gmail.com',
-  balance: 1000,
-});
-console.log(instance);
 export { UserModel, User };
