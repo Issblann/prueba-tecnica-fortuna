@@ -1,18 +1,19 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, ObjectId, Schema } from 'mongoose';
 
 interface Bet extends Document {
-  userId: string;
-  eventId: string;
+  userId: ObjectId;
+  eventId: ObjectId;
   betValue: number;
   fee: number;
   status: string;
 }
 
 const BetSchema = new Schema({
-  userId: { type: String, required: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
   eventId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
+    ref: 'Event',
   },
   betValue: { type: Number, required: true },
   fee: { type: Number, required: true },

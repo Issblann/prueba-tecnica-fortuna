@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { Bet } from '../../domain/entities/Bets';
 import { BetsRepository } from '../../domain/interfaces/Bets.repository';
 import { BetModel } from '../models/Bet.model';
@@ -9,6 +10,21 @@ export class BetRepositoryMongo implements BetsRepository {
     return newBet;
   }
 
+  async getAllByUser(userId: string, status?: string): Promise<Bet[]> {
+    const userIdToObjectId = new mongoose.Types.ObjectId(userId);
+
+    const query: any = { userId: userIdToObjectId };
+
+    if (status) {
+      query.status = status;
+    }
+
+    const bets = await BetModel.find(query)
+      .populate('eventId', 'name date sportType')
+      .populate('userId', 'name email');
+
+    return bets;
+  }
   // async getAllByUser(userId: string): Promise<Bet[]> {
   //   const bets = await BetModel.find({ userId });
   //   return bets.map(
