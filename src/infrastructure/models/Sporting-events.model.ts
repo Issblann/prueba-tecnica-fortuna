@@ -15,5 +15,8 @@ const EventSchema = new Schema({
   sportType: { type: String, required: true },
 });
 
-const SportingEventsModel = mongoose.model<SportingEvents>('Bet', EventSchema);
+const SportingEventsModel = mongoose.model<SportingEvents>(
+  'Event',
+  EventSchema
+);
 export { SportingEventsModel, SportingEvents };

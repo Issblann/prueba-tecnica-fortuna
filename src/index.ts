@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { userRoutes } from './interface/routes/userRoutes';
 import { betRoutes } from './interface/routes/betRoutes';
+import { eventRoutes } from './interface/routes/eventRoutes';
 
 dotenv.config();
 const app = express();
@@ -21,7 +22,7 @@ const connectDB = async () => {
 
 connectDB();
 
-app.use('/api/v1', userRoutes, betRoutes);
+app.use('/api/v1', userRoutes, betRoutes, eventRoutes);
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
