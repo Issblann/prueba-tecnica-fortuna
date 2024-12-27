@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
+import { userRoutes } from './interface/routes/userRoutes';
 
 dotenv.config();
 const app = express();
@@ -19,7 +20,7 @@ const connectDB = async () => {
 
 connectDB();
 
-// app.use('/api/v1', ); rutas aqui
+app.use('/api/v1', userRoutes);
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
