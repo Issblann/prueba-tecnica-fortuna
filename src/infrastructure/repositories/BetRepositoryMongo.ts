@@ -25,28 +25,16 @@ export class BetRepositoryMongo implements BetsRepository {
 
     return bets;
   }
-  // async getAllByUser(userId: string): Promise<Bet[]> {
-  //   const bets = await BetModel.find({ userId });
-  //   return bets.map(
-  //     (bet) =>
-  //       new Bet(bet.userId, bet.eventId, bet.fee, bet.betValue, bet.status)
-  //   );
-  // }
 
-  // async updateStatus(betId: string, status: string): Promise<Bet> {
-  //   const updatedBet = await BetModel.findByIdAndUpdate(
-  //     betId,
-  //     { status },
-  //     { new: true }
-  //   );
-
-  // }
-
-  // async getAllByEvent(eventId: string): Promise<Bet[]> {
-  //   const bets = await BetModel.find({ eventId });
-  //   return bets.map(
-  //     (bet) =>
-  //       new Bet(bet.userId, bet.eventId, bet.fee, bet.betValue, bet.status)
-  //   );
-  // }
+  async updateStatus(betId: string, status: string): Promise<Bet> {
+    const updatedBet = await BetModel.findByIdAndUpdate(
+      betId,
+      { $set: { status } },
+      { new: true }
+    );
+    if (!updatedBet) {
+      throw new Error('Bet not found');
+    }
+    return updatedBet;
+  }
 }
