@@ -1,11 +1,13 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, ObjectId, Schema } from 'mongoose';
 
-interface User extends Document {
+interface IUser extends Document {
+  _id: ObjectId;
   name: string;
   email: string;
   balance: number;
 }
 
+//Esquema para usuarios
 const UserSchema = new Schema({
   name: { type: String, required: true },
   email: {
@@ -17,5 +19,5 @@ const UserSchema = new Schema({
   balance: { type: Number, required: true },
 });
 
-const UserModel = mongoose.model<User>('User', UserSchema);
-export { UserModel, User };
+const UserModel = mongoose.model<IUser>('User', UserSchema);
+export { UserModel, IUser };

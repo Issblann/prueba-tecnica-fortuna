@@ -1,10 +1,10 @@
 import { User } from '../domain/entities/Users';
 import { UserRepository } from '../domain/interfaces/Users.repository';
 
-export class CreateUser {
+export class UpdateUser {
   constructor(private userRepository: UserRepository) {}
 
-  async execute(data: User): Promise<User> {
-    return await this.userRepository.create(data);
+  async execute(data: User): Promise<void> {
+    return await this.userRepository.update(data);
   }
 }

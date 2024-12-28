@@ -4,24 +4,61 @@ import { SportingEventsModel } from '../models/Sporting-events.model';
 
 export class SportingEventsRepositoryMongo implements SportingEventsRepository {
   async create(event: SportingEvent): Promise<SportingEvent> {
-    const createdEvent = await SportingEventsModel.create(event);
-    return new SportingEvent(
-      createdEvent.name,
-      createdEvent.date,
-      createdEvent.sportType
-    );
+    const newEvent = new SportingEventsModel(event);
+    await newEvent.save();
+    return newEvent;
   }
 
-  async getAll(): Promise<SportingEvent[]> {
-    const events = await SportingEventsModel.find();
-    return events.map(
-      (event) => new SportingEvent(event.name, event.date, event.sportType)
-    );
-  }
+  async getAllWithBets(): Promise<SportingEvent[]> {
+    const events = await SportingEventsModel.aggregate([
+      {
+        $lookup: {
+          from: 'bets',
+          localField: '_id',
+          foreignField: 'eventId',
+          as: 'bets',
+        },
+      },
+      {
+        $unwind: {
+          path: '$bets',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $group: {
+          _id: '$_id',
+          name: { $first: '$name' },
+          date: { $first: '$date' },
+          sportType: { $first: '$sportType' },
+          totalBet: { $sum: '$bets.betValue' },
+          bets: { $push: '$bets' },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          name: 1,
+          date: 1,
+          sportType: 1,
+          totalBet: 1,
+          bets: 1,
+        },
+      },
+    ]);
 
-  async getById(eventId: string): Promise<SportingEvent | null> {
-    const event = await SportingEventsModel.findById(eventId);
-    if (!event) return null;
-    return new SportingEvent(event.name, event.date, event.sportType);
+    return events;
   }
+  // async getAll(): Promise<SportingEvent[]> {
+  //   const events = await SportingEventsModel.find();
+  //   return events.map(
+  //     (event) => new SportingEvent(event.name, event.date, event.sportType)
+  //   );
+  // }
+
+  // async getById(eventId: string): Promise<SportingEvent | null> {
+  //   const event = await SportingEventsModel.findById(eventId);
+  //   if (!event) return null;
+  //   return new SportingEvent(event.name, event.date, event.sportType);
+  // }
 }
