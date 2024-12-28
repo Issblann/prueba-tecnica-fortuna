@@ -12,7 +12,7 @@ Rutas de los esquemas: (https://github.com/Issblann/prueba-tecnica-fortuna/tree/
 ## Backend
 He utilizado Clean Architecture para estructurar el proyecto. La separación de responsabilidades incluye las siguientes carpetas y archivos:
 - Controladores (controllers/): Gestionan las solicitudes HTTP y las respuestas.
-- Servicios (services/): Contienen la lógica de negocio.
+- Servicios (casosDeUso o Servicios/): Contienen la lógica de negocio.
 - Repositorios (repositories/): Interactúan con la base de datos (MongoDB).
 - Entidades (entities/): Representan las entidades del modelo de datos (Usuario, Evento, Apuesta).
 
