@@ -21,9 +21,12 @@ router.put('/bets/:betId/status', async (req, res) => {
   await betController.updateBetStatus(req, res);
 });
 
-router.post('/bets', (req, res) => betController.createBet(req, res));
-router.get('/bets/:userId', (req, res) =>
-  betController.getBetsByUser(req, res)
-);
+router.post('/bets', async (req, res) => {
+  await betController.createBet(req, res);
+});
+
+router.get('/bets/:userId', async (req, res) => {
+  await betController.getBetsByUser(req, res);
+});
 
 export { router as betRoutes };

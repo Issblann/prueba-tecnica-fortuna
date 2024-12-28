@@ -13,8 +13,10 @@ const eventController = new EventController(
   getEventsWithTotalBets
 );
 
-router.post('/events', (req, res) => eventController.createEvent(req, res));
-router.get('/events', (req, res) =>
-  eventController.getAllEventsWithBets(req, res)
-);
+router.post('/events', async (req, res) => {
+  await eventController.createEvent(req, res);
+});
+router.get('/events', async (req, res) => {
+  eventController.getAllEventsWithBets(req, res);
+});
 export { router as eventRoutes };

@@ -9,12 +9,29 @@ export class EventController {
   ) {}
 
   async createEvent(req: Request, res: Response) {
-    const event = await this.create.execute(req.body);
-    res.json(event);
+    try {
+      const event = await this.create.execute(req.body);
+      return res.status(201).json(event); // 201 Created
+    } catch (error: any) {
+      console.error(error);
+      return res.status(500).json({
+        error: 'Hubo un problema al crear el evento.',
+        message: error.message || 'Error inesperado.',
+      });
+    }
   }
 
   async getAllEventsWithBets(req: Request, res: Response) {
-    const events = await this.getAllWithBets.execute();
-    res.json(events);
+    try {
+      const events = await this.getAllWithBets.execute();
+      return res.status(200).json(events); // 200 OK
+    } catch (error: any) {
+      console.error(error);
+      return res.status(500).json({
+        error:
+          'Hubo un problema al obtener los eventos deportivos con las apuestas.',
+        message: error.message || 'Error inesperado.',
+      });
+    }
   }
 }
