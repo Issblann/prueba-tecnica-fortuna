@@ -37,7 +37,7 @@ export class SportingEventsRepositoryMongo implements SportingEventsRepository {
       },
       {
         $project: {
-          _id: 0,
+          _id: 1,
           name: 1,
           date: 1,
           sportType: 1,
@@ -49,16 +49,4 @@ export class SportingEventsRepositoryMongo implements SportingEventsRepository {
 
     return events;
   }
-  // async getAll(): Promise<SportingEvent[]> {
-  //   const events = await SportingEventsModel.find();
-  //   return events.map(
-  //     (event) => new SportingEvent(event.name, event.date, event.sportType)
-  //   );
-  // }
-
-  // async getById(eventId: string): Promise<SportingEvent | null> {
-  //   const event = await SportingEventsModel.findById(eventId);
-  //   if (!event) return null;
-  //   return new SportingEvent(event.name, event.date, event.sportType);
-  // }
 }
