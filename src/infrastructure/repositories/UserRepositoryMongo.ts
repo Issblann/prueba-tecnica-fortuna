@@ -19,10 +19,4 @@ export class UserRepositoryMongo implements UserRepository {
     });
     if (!updated) throw new Error('User not found');
   }
-
-  // async getById(userId: string): Promise<User | null> {
-  //   const user = await UserModel.findById(userId);
-  //   if (!user) return null;
-  //   return new User(user.name, user.email, user.balance);
-  // }
 }
