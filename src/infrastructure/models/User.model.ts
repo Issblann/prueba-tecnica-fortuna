@@ -7,7 +7,6 @@ interface IUser extends Document {
   balance: number;
 }
 
-//Esquema para usuarios
 const UserSchema = new Schema({
   name: { type: String, required: true },
   email: {
