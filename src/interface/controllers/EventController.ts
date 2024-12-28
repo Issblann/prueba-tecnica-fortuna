@@ -11,7 +11,7 @@ export class EventController {
   async createEvent(req: Request, res: Response) {
     try {
       const event = await this.create.execute(req.body);
-      return res.status(201).json(event); // 201 Created
+      return res.status(201).json(event);
     } catch (error: any) {
       console.error(error);
       return res.status(500).json({
@@ -24,7 +24,7 @@ export class EventController {
   async getAllEventsWithBets(req: Request, res: Response) {
     try {
       const events = await this.getAllWithBets.execute();
-      return res.status(200).json(events); // 200 OK
+      return res.status(200).json(events);
     } catch (error: any) {
       console.error(error);
       return res.status(500).json({

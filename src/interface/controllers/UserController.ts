@@ -13,7 +13,7 @@ export class UserController {
   async getAll(req: Request, res: Response) {
     try {
       const users = await this.getAllUsers.execute();
-      return res.status(200).json(users); // 200 OK
+      return res.status(200).json(users);
     } catch (error: any) {
       console.error(error);
       return res.status(500).json({
@@ -26,7 +26,7 @@ export class UserController {
   async createUser(req: Request, res: Response) {
     try {
       const user = await this.create.execute(req.body);
-      return res.status(201).json(user); // 201 Created
+      return res.status(201).json(user);
     } catch (error: any) {
       console.error(error);
       return res.status(500).json({
@@ -47,7 +47,7 @@ export class UserController {
       };
 
       await this.update.execute(user);
-      return res.status(200).json({ message: 'Usuario actualizado' }); // 200 OK
+      return res.status(200).json({ message: 'Usuario actualizado' });
     } catch (error: any) {
       console.error(error);
       return res.status(500).json({

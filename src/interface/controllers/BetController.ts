@@ -13,7 +13,7 @@ export class BetController {
   async createBet(req: Request, res: Response) {
     try {
       const bet = await this.create.execute(req.body);
-      return res.status(201).json(bet); // 201 Created
+      return res.status(201).json(bet);
     } catch (error: any) {
       console.error(error);
       return res.status(500).json({
@@ -28,7 +28,7 @@ export class BetController {
       const { userId } = req.params;
       const status = req.query.status as string;
       const bets = await this.getAllByUser.execute(userId, status);
-      return res.status(200).json(bets); // 200 OK
+      return res.status(200).json(bets);
     } catch (error: any) {
       console.error(error);
       return res.status(500).json({
